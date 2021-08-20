@@ -1,4 +1,6 @@
-Vagrant.configure("2") do |config|
+Vagrant_API_Version = '2'
+
+Vagrant.configure(Vagrant_API_Version) do |config|
   config.vm.define:'ansible-server' do |cfg|  # vagrant ssh 접속시 불러주는 호스트명
     # define 밑으로 들어가기 
     cfg.vm.box='centos/7'   # 사용할 이미지 
@@ -6,10 +8,13 @@ Vagrant.configure("2") do |config|
       vb.name = 'Ansible-Server'  # virtual box에서 사용될 이름 
     end
     cfg.vm.host_name='ansible-server'  # 설치하는 가상머신에서 보이는 호스트네임 
-    cfg.vm.synced_folder '.', '/vagrant', disabled: true  # 파일 마운트하지 않음 
-    cfg.vm.network 'public_network', ip: '192.168.1.10'  # public_network 설정시 bridge로 설정된다. 
-    cfg.vm.network 'forwarded_port', guest: 22, host:19210, auto_currect:false, id:'ssh'
+    cfg.vm.synced_folder ".", "/vagrant", disabled: true  # 파일 마운트하지 않음 
+    cfg.vm.network 'public_network', ip: '172.30.1.100'  # public_network 설정시 bridge로 설정된다. 
+    cfg.vm.network 'forwarded_port', guest: 22, host:17210, auto_currect:false, id:'ssh'
     # 호스트에서 19210으로 접속시 vm의 22번포트로 포워딩 
-    cfg.vm.provision 'shell', path: 'bootstrap.sh' # 앤서블 설치를 위한 스크립트 
+    cfg.vm.provision 'shell', path: 'bootstrap.sh' # path는 해당 파일을 전송하고 실행  
+    cfg.vm.provision 'file', source: 'Ansible_env_ready.yaml', destination: 'Ansible_env_ready.yaml' # file은 전송만 
+    cfg.vm.provision 'shell', inline: 'ansible-playbook Ansible_env_ready.yaml' # inline은 실행만
   end
 end
+

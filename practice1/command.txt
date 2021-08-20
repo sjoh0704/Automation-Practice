@@ -1,0 +1,3 @@
+vagrant up: 프로비저닝
+vagrant ssh: 프로비저닝된 인스턴스 ssh 접근
+vagrant provision ansible-server: 프로비저닝된 인스턴스에 이어서 적용 

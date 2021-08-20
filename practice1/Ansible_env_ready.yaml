@@ -1,0 +1,42 @@
+---
+- name: Setup for the Ansible's Environment
+  hosts: localhost  # ansible 서버에서 실행할 것이므로 
+  gather_facts: no # 빠른 실행을 위해 
+
+  tasks:
+  - name: Install vim-enhanced
+    yum: 
+      name: vim-enhanced
+    
+  - name: Install git
+    yum:
+      name: git
+      state: present
+
+  - name: Download pathogen.vim
+    shell: "curl -fLo /home/vagrant/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim"
+
+  - name: Git clone vim-ansible-yaml
+    git: 
+      repo: 'https://github.com/chase/vim-ansible-yaml'
+      dest: /home/vagrant/.vim/bundle/vim-ansible-yaml
+
+  - name: Configure vimrc
+    lineinfile:  # 라인을 추가 
+      dest: /home/vagrant/.vimrc
+      line: "{{ item }}"  # 다음 아이템들을 차례로 추가 
+    with_items:
+    - 'set number'
+    - 'execute pathogen#infect()'
+    - 'syntax on'
+
+  
+  - name: Configure Bashrc
+    lineinfile:
+      dest: /home/vagrant/.bashrc
+      line: "{{ item }}"
+    with_items:
+    - "alias vi='vim'"
+    - "alias ans='ansible'"
+    - "alias anp='ansible-playbook'"
+  

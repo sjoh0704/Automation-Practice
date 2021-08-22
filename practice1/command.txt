@@ -1,3 +1,11 @@
+<vagrant command>
+
 vagrant up: 프로비저닝
-vagrant ssh: 프로비저닝된 인스턴스 ssh 접근
-vagrant provision ansible-server: 프로비저닝된 인스턴스에 이어서 적용 
+vagrant ssh ansible-server: 프로비저닝된 인스턴스 ssh 접근
+vagrant provision ansible-server: 프로비저닝된 인스턴스에 이어서 Vagrantfile 적용 
+vagrant destroy ansible-server: 프로비저닝한 서버 삭제 
+
+
+<ansible command>
+ansible command
+ansible all -m ping 

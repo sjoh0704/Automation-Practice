@@ -1,0 +1,11 @@
+ansible 서버에서 앤서블 노드들로 접근이 되지 않는다.
+이는 앤서블 노드의 sshd 설정 때문이다.
+제일 처음 앤서블 노드로 접근할 때 앤서블 노드의  /etc/ssh/sshd_config를 읽는다.
+비밀번호로 접근할 때 /etc/ssh/sshd_config의 설정 중
+PasswordAuthentication no 일때 비밀번호로 접근이 안되므로
+PasswordAuthentication yes로 접근.
+
+이를 수정하는 방법 두가지 
+1. ansible-playbook
+2. sed
+

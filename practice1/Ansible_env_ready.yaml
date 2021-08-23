@@ -11,8 +11,8 @@
       dest=/etc/hosts
       content="
         172.30.1.100 server
-        172.30.1.100 node01
-        172.30.1.100 node02
+        172.30.1.101 node01
+        172.30.1.102 node02
       "
   
   - name: Add "/etc/ansible/hosts"

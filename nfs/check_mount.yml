@@ -1,0 +1,11 @@
+---
+- name: Check mounting status for linux
+  hosts: centOS:ubuntu
+  strategy: debug
+  gather_facts: no
+
+  tasks:
+  - name: linux nfs clients
+    shell: mount | grep nfs_shared
+    register: output
+  - debug: var=output.stdout_lines

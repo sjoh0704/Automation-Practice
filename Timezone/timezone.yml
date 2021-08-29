@@ -1,6 +1,6 @@
 --- 
 - name: setup timezone
-  hosts: centOS
+  hosts: centOS:ubuntu  # centOS 그룹과 ubuntu 그룹에 적용
   gather_facts: no
   become: yes
 

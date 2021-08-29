@@ -6,18 +6,22 @@
 
   tasks:
   - name: install epel-release
-    yum:
-      name: epel-release
-      state: latest
+    yum: name=epel-release state=latest
   - name: install nginx
-    yum: 
-      name: nginx
-      state: present 
+    yum: name=nginx state=present 
   - name: upload default index.html for web server
-    get_url: 
-      url: https://www.nginx.com
-      dest: /usr/share/nginx/html mode 0644
+    get_url: url=https://www.apache.com dest=/usr/share/nginx/html mode=0644
   - name: start nginx web server
-    service: 
-      name: nginx
-      state: started
+    service: name=nginx state=started
+
+- name: Install nginx on ubuntu
+  hosts: ubuntu
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: install nginx on ubuntu
+    apt: pkg=nginx state=present update_cache=yes
+  - name: upload default index.html for apache
+    get_url: url=https://www.apache.com dest=/usr/share/nginx/html mode=0644 validate_certs=no
+

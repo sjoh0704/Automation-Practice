@@ -1,5 +1,5 @@
 ---
-- name: Ansible_ssh_conf_4_CentOS
+- name: Ansible_ssh_conf_4_CentOS # 참고로 ubuntu는 이 설정이 필요없음.
   hosts: localhost
   gather_facts: no
 

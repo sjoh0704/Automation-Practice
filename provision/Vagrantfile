@@ -32,7 +32,38 @@ Vagrant.configure(Vagrant_API_Version) do |config|
       cfg.vm.provision 'shell', path: 'bash_ssh_conf_4_CentOS.sh'
     end
 
+    # Ansible-node03
+    config.vm.define:'ansible-node03' do |cfg| 
+      cfg.vm.box='ubuntu/trusty64'  
+      cfg.vm.provider:virtualbox  do |vb|  
+        vb.name = 'Ansible-Node03'
+        vb.customize ['modifyvm', :id, '--cpus', 1] # cpu 사용량 수정
+        vb.customize ['modifyvm', :id, '--memory', 512] # 메모리 사용량 수정 
+      end
+      cfg.vm.host_name='ansible-node03' 
+      cfg.vm.synced_folder ".", "/vagrant", disabled: true 
+      cfg.vm.network 'public_network', ip: '172.30.1.103' 
+      cfg.vm.network 'forwarded_port', guest: 22, host:17213, auto_currect:false, id:'ssh'
+      # cfg.vm.provision 'shell', path: 'bash_ssh_conf_4_CentOS.sh' # ubuntu에서는 필요없는 과정
+    end
+
+    # Ansible-node04
+    config.vm.define:'ansible-node04' do |cfg| 
+      cfg.vm.box='ubuntu/trusty64'  
+      cfg.vm.provider:virtualbox  do |vb|  
+        vb.name = 'Ansible-Node04'
+        vb.customize ['modifyvm', :id, '--cpus', 1] # cpu 사용량 수정
+        vb.customize ['modifyvm', :id, '--memory', 512] # 메모리 사용량 수정 
+      end
+      cfg.vm.host_name='ansible-node04' 
+      cfg.vm.synced_folder ".", "/vagrant", disabled: true 
+      cfg.vm.network 'public_network', ip: '172.30.1.104' 
+      cfg.vm.network 'forwarded_port', guest: 22, host:17214, auto_currect:false, id:'ssh'
+      # cfg.vm.provision 'shell', path: 'bash_ssh_conf_4_CentOS.sh'
+    end
+
     # Ansible-server
+
   config.vm.define:'ansible-server' do |cfg|  # vagrant ssh 접속시 불러주는 호스트명
     # define 밑으로 들어가기 
     cfg.vm.box='centos/7'   # 사용할 이미지 

@@ -46,11 +46,10 @@ apt-get update
 
 apt-get install -y kubectl
 
-echo "alias k='kubectl'" >>  /home/vagrant/.bashrc
-
-source /home/vagrant/.bashrc
-
 echo "------------------------minikube start------------------------"
 
 su - vagrant -c "sudo minikube start --driver=none"
+
+su - vagrant -c "sudo chown -R $USER $HOME/.kube $HOME/.minikube"
+
 

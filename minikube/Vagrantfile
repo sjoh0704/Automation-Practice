@@ -1,0 +1,23 @@
+Vagrant_API_Version = '2'
+
+Vagrant.configure(Vagrant_API_Version) do |config|
+  config.vm.define:'minikube' do |cfg|
+    cfg.vm.box='ubuntu/bionic64'  
+    cfg.vm.provider:virtualbox  do |vb|
+      vb.name = 'minikube-server'
+      vb.customize ['modifyvm', :id, '--cpus', 2]
+      vb.customize ['modifyvm', :id, '--memory', 4096] 
+    end
+    cfg.vm.host_name='minikube'  
+    cfg.vm.synced_folder ".", "/vagrant", disabled: true 
+    cfg.vm.network 'public_network', ip: '192.168.3.300' 
+    cfg.vm.network 'forwarded_port', guest: 22, host:17200, auto_currect:false, id:'ssh'
+    cfg.vm.provision 'shell', path: 'bootstrap.sh'
+    # cfg.vm.provision 'file', source: 'Ansible_env_ready.yaml', destination: 'Ansible_env_ready.yaml' # file은 전송만 
+    # cfg.vm.provision 'shell', inline: 'ansible-playbook Ansible_env_ready.yaml' # inline은 실행만
+    # cfg.vm.provision 'shell', path: 'add_ssh_auth.sh', privileged: false # root권한이 아닌  vagrant 권한을 사용하겠다. 
+    # cfg.vm.provision 'file', source: 'Ansible_ssh_conf_4_CentOS.yml', destination: 'Ansible_ssh_conf_4_CentOS.yml'
+    # cfg.vm.provision 'shell', inline: 'ansible-playbook Ansible_ssh_conf_4_CentOS.yml'
+  end
+end
+

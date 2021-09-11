@@ -50,6 +50,6 @@ echo "------------------------minikube start------------------------"
 
 su - vagrant -c "sudo minikube start --driver=none"
 
-su - vagrant -c "sudo chown -R $USER $HOME/.kube $HOME/.minikube"
+sudo chown -R vagrant /home/vagrant/.kube /home/vagrant/.minikube
 
 

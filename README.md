@@ -1,7 +1,5 @@
 # My-Automation
 
-<br/>
-
 ## Automation List
 
 

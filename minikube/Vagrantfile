@@ -10,7 +10,12 @@ Vagrant.configure(Vagrant_API_Version) do |config|
     end
     cfg.vm.host_name='minikube'  
     cfg.vm.synced_folder ".", "/vagrant", disabled: true 
-    cfg.vm.network 'public_network', ip: '192.168.3.300' 
+    cfg.vm.network "public_network"
+    cfg.vm.network "forwarded_port" , guest: 80 , host: 8000
+    cfg.vm.network "forwarded_port" , guest: 30000 , host: 30000
+    cfg.vm.network "forwarded_port" , guest: 30001 , host: 30001
+    cfg.vm.network "forwarded_port" , guest: 30002 , host: 30002
+    cfg.vm.network "forwarded_port" , guest: 30003 , host: 30003
     cfg.vm.network 'forwarded_port', guest: 22, host:17200, auto_currect:false, id:'ssh'
     cfg.vm.provision 'shell', path: 'bootstrap.sh'
    end
